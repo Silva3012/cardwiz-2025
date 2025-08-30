@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cardwiz/app_router.gr.dart';
+import 'package:cardwiz/core/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
 
 class CardWizBottomNavigationBar extends StatelessWidget {
@@ -9,7 +9,7 @@ class CardWizBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
       routes: const [
-        PlaceHolderRoute(),
+        AddCardRoute(),
         PlaceHolderRoute(),
         PlaceHolderRoute(),
       ],

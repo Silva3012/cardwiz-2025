@@ -1,4 +1,4 @@
-import 'package:cardwiz/app_router.dart';
+import 'package:cardwiz/core/router/app_router.dart';
 import 'package:flutter/material.dart';
 
 class CardWizApp extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cardwiz/app_router.gr.dart';
+import 'package:cardwiz/core/router/app_router.gr.dart';
 
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
@@ -9,7 +9,7 @@ class AppRouter extends RootStackRouter {
           page: MainRoute.page,
           initial: true,
           children: [
-            AutoRoute(page: PlaceHolderRoute.page),
+            AutoRoute(page: AddCardRoute.page),
             AutoRoute(page: PlaceHolderRoute.page),
             AutoRoute(page: PlaceHolderRoute.page),
           ],

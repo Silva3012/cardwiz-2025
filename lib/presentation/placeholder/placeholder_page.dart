@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cardwiz/presentation/widgets/placeholder_widget.dart';
+import 'package:cardwiz/presentation/placeholder/widgets/placeholder_widget.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
