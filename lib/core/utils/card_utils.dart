@@ -1,13 +1,12 @@
-class CardUitls {
-  /// Detect card type from card number
-  static String detectCardType(String cardNumber) {
+class CardUtils {
+  static String detectCardType({required String cardNumber}) {
     if (cardNumber.startsWith('4')) return 'Visa';
     if (RegExp(r'^5[1-5]').hasMatch(cardNumber)) return 'Mastercard';
     return 'Unknown';
   }
 
   /// Luhn algorithm to validate card number
-  static bool validateCardNumber(String cardNumber) {
+  static bool validateCardNumber({required String cardNumber}) {
     final digits = cardNumber
         .replaceAll(RegExp(r'\D'), '')
         .split('')
@@ -25,7 +24,6 @@ class CardUitls {
     return sum % 10 == 0;
   }
 
-  /// Check if issuing country is banned
   static bool isBannedCountry(String country, List<String> bannedCountries) {
     return bannedCountries.contains(country);
   }

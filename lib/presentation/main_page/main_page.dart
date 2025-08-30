@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:cardwiz/presentation/widgets/bottom_navigation_bar.dart';
+import 'package:cardwiz/presentation/main_page/widgets/bottom_navigation_bar.dart';
 
 @RoutePage()
 class MainPage extends StatelessWidget {
