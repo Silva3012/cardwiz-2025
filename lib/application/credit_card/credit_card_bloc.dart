@@ -1,0 +1,113 @@
+import 'package:cardwiz/repositories/interfaces/i_credit_card_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cardwiz/core/errors/failures.dart';
+import 'package:cardwiz/models/dto/credit_card/credit_card_dto.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'credit_card_event.dart';
+part 'credit_card_state.dart';
+
+part 'credit_card_bloc.freezed.dart';
+
+class CreditCardBloc extends Bloc<CreditCardEvent, CreditCardState> {
+  CreditCardBloc(this._creditCardRepository)
+      : super(CreditCardState.initial()) {
+    on<CreditCardEvent>((event, emit) async {
+      await event.map(
+        onGetCards: (e) async {
+          emit(
+            state.copyWith(
+              isLoading: true,
+              failure: null,
+            ),
+          );
+          final result = await _creditCardRepository.getCards();
+          result.fold(
+            (failure) => emit(
+              state.copyWith(
+                isLoading: false,
+                failure: failure,
+              ),
+            ),
+            (cards) => emit(
+              state.copyWith(
+                isLoading: false,
+                cards: cards,
+              ),
+            ),
+          );
+        },
+        onAddCard: (e) async {
+          emit(
+            state.copyWith(
+              isLoading: true,
+              failure: null,
+            ),
+          );
+          final result = await _creditCardRepository.addCard(e.card);
+          result.fold(
+            (failure) => emit(
+              state.copyWith(
+                isLoading: false,
+                failure: failure,
+              ),
+            ),
+            (_) async {
+              final updatedResult = await _creditCardRepository.getCards();
+              updatedResult.fold(
+                (failure) => emit(
+                  state.copyWith(
+                    isLoading: false,
+                    failure: failure,
+                  ),
+                ),
+                (cards) => emit(
+                  state.copyWith(
+                    isLoading: false,
+                    cards: cards,
+                  ),
+                ),
+              );
+            },
+          );
+        },
+        onDeleteCard: (e) async {
+          emit(
+            state.copyWith(
+              isLoading: true,
+              failure: null,
+            ),
+          );
+          final result = await _creditCardRepository.deleteCard(e.cardNumber);
+          result.fold(
+            (failure) => emit(
+              state.copyWith(
+                isLoading: false,
+                failure: failure,
+              ),
+            ),
+            (_) async {
+              final updatedResult = await _creditCardRepository.getCards();
+              updatedResult.fold(
+                (failure) => emit(
+                  state.copyWith(
+                    isLoading: false,
+                    failure: failure,
+                  ),
+                ),
+                (cards) => emit(
+                  state.copyWith(
+                    isLoading: false,
+                    cards: cards,
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      );
+    });
+  }
+
+  final ICreditCardRepository _creditCardRepository;
+}

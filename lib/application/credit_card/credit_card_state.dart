@@ -1,0 +1,16 @@
+part of 'credit_card_bloc.dart';
+
+@freezed
+class CreditCardState with _$CreditCardState {
+  factory CreditCardState({
+    required List<CreditCardDto> cards,
+    required bool isLoading,
+    Failure? failure,
+  }) = _CreditCardState;
+
+  factory CreditCardState.initial() => CreditCardState(
+        cards: [],
+        isLoading: false,
+        failure: null,
+      );
+}
