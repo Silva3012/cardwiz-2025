@@ -1,4 +1,4 @@
-import 'package:cardwiz/injection.config.dart';
+import 'package:cardwiz/core/injection.config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 

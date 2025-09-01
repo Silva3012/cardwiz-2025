@@ -4,6 +4,7 @@ import 'package:cardwiz/models/dto/country/country_dto.dart';
 import 'package:cardwiz/models/dto/credit_card/credit_card_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SubmitButton extends StatelessWidget {
   const SubmitButton({
@@ -11,9 +12,11 @@ class SubmitButton extends StatelessWidget {
     required this.formKey,
     required this.cardNumberController,
     required this.cvvController,
-    required this.selectedCountry,
+    required this.selectedCountryCode,
+    required this.selectedCountryName,
     required this.cardHolderNameController,
     required this.expiryDateController,
+    required this.bannedCountryCodes,
   });
 
   final GlobalKey<FormState> formKey;
@@ -21,30 +24,41 @@ class SubmitButton extends StatelessWidget {
   final TextEditingController cvvController;
   final TextEditingController cardHolderNameController;
   final TextEditingController expiryDateController;
-  final String? selectedCountry;
+  final String? selectedCountryCode;
+  final String? selectedCountryName;
+  final List<String> bannedCountryCodes;
 
-  void _submitCard(BuildContext context) {
-    final nameError =
-        CardValidatorService.validateName(cardHolderNameController.text);
-    final numberError =
-        CardValidatorService.validateCardNumber(cardNumberController.text);
-    final cvvError = CardValidatorService.validateCVV(cvvController.text);
-    final expiryError =
-        CardValidatorService.validateExpiryDate(expiryDateController.text);
-
-    if (nameError != null ||
-        numberError != null ||
-        cvvError != null ||
-        expiryError != null) {
+  void _submitCard(BuildContext context) async {
+    if (CardValidatorService.validateName(cardHolderNameController.text) !=
+            null ||
+        CardValidatorService.validateCardNumber(cardNumberController.text) !=
+            null ||
+        CardValidatorService.validateCVV(cvvController.text) != null ||
+        CardValidatorService.validateExpiryDate(expiryDateController.text) !=
+            null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please fill all fields correctly.')),
       );
       return;
     }
 
-    if (selectedCountry == null || selectedCountry!.isEmpty) {
+    if (selectedCountryCode == null || selectedCountryName == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please select a country.')),
+      );
+      return;
+    }
+
+    // Check banned countries
+    final prefs = await SharedPreferences.getInstance();
+    final bannedCodes =
+        prefs.getStringList('bannedCountries') ?? bannedCountryCodes;
+
+    if (bannedCodes.contains(selectedCountryCode)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Cards from $selectedCountryName are not allowed.'),
+        ),
       );
       return;
     }
@@ -54,18 +68,12 @@ class SubmitButton extends StatelessWidget {
     final cardType =
         CardValidatorService.getCreditCardTypeFromNumbers(cleanedNumber);
 
-    int? month;
-    int? year;
     final expiryParts =
         CardValidatorService.getCardExpiryDate(expiryDateController.text);
-    if (expiryParts.length == 2) {
-      month = expiryParts[0];
-      year = expiryParts[1];
-    }
+    final month = expiryParts.isNotEmpty ? expiryParts[0] : null;
+    final year = expiryParts.length > 1 ? expiryParts[1] : null;
 
     final cvv = int.tryParse(cvvController.text.trim());
-
-    final countryDto = CountryDto(name: selectedCountry!, code: '');
 
     final card = CreditCardDto(
       cardNumber: cleanedNumber,
@@ -74,7 +82,8 @@ class SubmitButton extends StatelessWidget {
       month: month,
       year: year,
       cvv: cvv,
-      issuingCountry: countryDto,
+      issuingCountry:
+          CountryDto(name: selectedCountryName!, code: selectedCountryCode!),
     );
 
     context.read<CreditCardBloc>().add(OnAddCard(card: card));

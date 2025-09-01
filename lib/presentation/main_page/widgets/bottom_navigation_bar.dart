@@ -11,7 +11,7 @@ class CardWizBottomNavigationBar extends StatelessWidget {
       routes: const [
         AddCardRoute(),
         CreditCardListRoute(),
-        PlaceHolderRoute(),
+        BannedCountriesRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(
@@ -27,7 +27,7 @@ class CardWizBottomNavigationBar extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.folder),
-              label: "Captured",
+              label: "Captured Cards",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.public),

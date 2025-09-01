@@ -11,9 +11,9 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
-import 'application/credit_card/credit_card_bloc.dart' as _i9;
-import 'repositories/implementation/credit_card_repository.dart' as _i409;
-import 'repositories/interfaces/i_credit_card_repository.dart' as _i4;
+import '../application/credit_card/credit_card_bloc.dart' as _i1;
+import '../repositories/implementation/credit_card_repository.dart' as _i349;
+import '../repositories/interfaces/i_credit_card_repository.dart' as _i602;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -26,10 +26,10 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.lazySingleton<_i4.ICreditCardRepository>(
-        () => _i409.CreditCardRepository());
-    gh.lazySingleton<_i9.CreditCardBloc>(
-        () => _i9.CreditCardBloc(gh<_i4.ICreditCardRepository>()));
+    gh.lazySingleton<_i602.ICreditCardRepository>(
+        () => _i349.CreditCardRepository());
+    gh.lazySingleton<_i1.CreditCardBloc>(
+        () => _i1.CreditCardBloc(gh<_i602.ICreditCardRepository>()));
     return this;
   }
 }
