@@ -11,7 +11,7 @@ class AppRouter extends RootStackRouter {
           children: [
             AutoRoute(page: AddCardRoute.page),
             AutoRoute(page: CreditCardListRoute.page),
-            AutoRoute(page: PlaceHolderRoute.page),
+            AutoRoute(page: BannedCountriesRoute.page),
           ],
         )
       ];
