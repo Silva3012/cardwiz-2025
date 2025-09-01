@@ -647,6 +647,7 @@ mixin _$CreditCardState {
   List<CreditCardDto> get cards => throw _privateConstructorUsedError;
   List<CountryDto> get countries => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  bool? get isCardAdded => throw _privateConstructorUsedError;
   Failure? get failure => throw _privateConstructorUsedError;
 
   /// Create a copy of CreditCardState
@@ -666,6 +667,7 @@ abstract class $CreditCardStateCopyWith<$Res> {
       {List<CreditCardDto> cards,
       List<CountryDto> countries,
       bool isLoading,
+      bool? isCardAdded,
       Failure? failure});
 }
 
@@ -687,6 +689,7 @@ class _$CreditCardStateCopyWithImpl<$Res, $Val extends CreditCardState>
     Object? cards = null,
     Object? countries = null,
     Object? isLoading = null,
+    Object? isCardAdded = freezed,
     Object? failure = freezed,
   }) {
     return _then(_value.copyWith(
@@ -702,6 +705,10 @@ class _$CreditCardStateCopyWithImpl<$Res, $Val extends CreditCardState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isCardAdded: freezed == isCardAdded
+          ? _value.isCardAdded
+          : isCardAdded // ignore: cast_nullable_to_non_nullable
+              as bool?,
       failure: freezed == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -722,6 +729,7 @@ abstract class _$$CreditCardStateImplCopyWith<$Res>
       {List<CreditCardDto> cards,
       List<CountryDto> countries,
       bool isLoading,
+      bool? isCardAdded,
       Failure? failure});
 }
 
@@ -741,6 +749,7 @@ class __$$CreditCardStateImplCopyWithImpl<$Res>
     Object? cards = null,
     Object? countries = null,
     Object? isLoading = null,
+    Object? isCardAdded = freezed,
     Object? failure = freezed,
   }) {
     return _then(_$CreditCardStateImpl(
@@ -756,6 +765,10 @@ class __$$CreditCardStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isCardAdded: freezed == isCardAdded
+          ? _value.isCardAdded
+          : isCardAdded // ignore: cast_nullable_to_non_nullable
+              as bool?,
       failure: freezed == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -771,6 +784,7 @@ class _$CreditCardStateImpl implements _CreditCardState {
       {required final List<CreditCardDto> cards,
       required final List<CountryDto> countries,
       required this.isLoading,
+      this.isCardAdded,
       this.failure})
       : _cards = cards,
         _countries = countries;
@@ -794,11 +808,13 @@ class _$CreditCardStateImpl implements _CreditCardState {
   @override
   final bool isLoading;
   @override
+  final bool? isCardAdded;
+  @override
   final Failure? failure;
 
   @override
   String toString() {
-    return 'CreditCardState(cards: $cards, countries: $countries, isLoading: $isLoading, failure: $failure)';
+    return 'CreditCardState(cards: $cards, countries: $countries, isLoading: $isLoading, isCardAdded: $isCardAdded, failure: $failure)';
   }
 
   @override
@@ -811,6 +827,8 @@ class _$CreditCardStateImpl implements _CreditCardState {
                 .equals(other._countries, _countries) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.isCardAdded, isCardAdded) ||
+                other.isCardAdded == isCardAdded) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
 
@@ -820,6 +838,7 @@ class _$CreditCardStateImpl implements _CreditCardState {
       const DeepCollectionEquality().hash(_cards),
       const DeepCollectionEquality().hash(_countries),
       isLoading,
+      isCardAdded,
       failure);
 
   /// Create a copy of CreditCardState
@@ -837,6 +856,7 @@ abstract class _CreditCardState implements CreditCardState {
       {required final List<CreditCardDto> cards,
       required final List<CountryDto> countries,
       required final bool isLoading,
+      final bool? isCardAdded,
       final Failure? failure}) = _$CreditCardStateImpl;
 
   @override
@@ -845,6 +865,8 @@ abstract class _CreditCardState implements CreditCardState {
   List<CountryDto> get countries;
   @override
   bool get isLoading;
+  @override
+  bool? get isCardAdded;
   @override
   Failure? get failure;
 

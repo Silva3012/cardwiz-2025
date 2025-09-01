@@ -10,7 +10,7 @@ class CardWizBottomNavigationBar extends StatelessWidget {
     return AutoTabsScaffold(
       routes: const [
         AddCardRoute(),
-        PlaceHolderRoute(),
+        CreditCardListRoute(),
         PlaceHolderRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {

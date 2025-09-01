@@ -1,75 +1,102 @@
 import 'dart:convert';
 
 import 'package:cardwiz/core/errors/failures.dart';
+import 'package:cardwiz/core/utils/card_type_enum.dart';
 import 'package:cardwiz/models/dto/country/country_dto.dart';
 import 'package:cardwiz/models/dto/credit_card/credit_card_dto.dart';
+import 'package:cardwiz/repositories/implementation/database_helper.dart';
 import 'package:cardwiz/repositories/interfaces/i_credit_card_repository.dart';
-import 'package:injectable/injectable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
+import 'package:injectable/injectable.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:http/http.dart' as http;
 
 @LazySingleton(as: ICreditCardRepository)
 class CreditCardRepository implements ICreditCardRepository {
-  static const _key = 'credit_cards';
-  static const _countriesKey = 'countries';
-  late SharedPreferences _preferences;
+  final DatabaseHelper _dbHelper = DatabaseHelper();
 
-  Future<void> init() async {
-    _preferences = await SharedPreferences.getInstance();
-  }
+  Future<Database> get _db async => await _dbHelper.database;
 
   @override
   Future<Either<Failure, void>> addCard(CreditCardDto card) async {
     try {
-      final cards = await _getCardsOrThrow();
+      final db = await _db;
 
-      if (cards.any((c) => c.cardNumber == card.cardNumber)) {
+      // Check for duplicates
+      final existing = await db.query(
+        'credit_cards',
+        where: 'cardNumber = ?',
+        whereArgs: [card.cardNumber],
+      );
+
+      if (existing.isNotEmpty) {
         return Left(DuplicateCardFailure());
       }
 
-      cards.add(card);
-      final jsonList = cards.map((c) => json.encode(c.toJson())).toList();
-      final success = await _preferences.setStringList(_key, jsonList);
+      await db.insert('credit_cards', {
+        'cardNumber': card.cardNumber,
+        'cardType': card.cardType.name,
+        'cardHolderName': card.cardHolderName,
+        'month': card.month,
+        'year': card.year,
+        'cvv': card.cvv,
+        'issuingCountry': jsonEncode(card.issuingCountry.toJson()),
+      });
 
-      if (!success) {
-        return Left(CacheFailure("Failed to save the card."));
-      }
       return const Right(null);
     } catch (e) {
-      return Left(CacheFailure("Failed to add the card."));
+      debugPrint('AddCard Error: $e');
+      return Left(CacheFailure('Failed to add card'));
     }
   }
 
   @override
   Future<Either<Failure, void>> deleteCard(String cardNumber) async {
     try {
-      final cards = await _getCardsOrThrow();
-      final initialLength = cards.length;
-      cards.removeWhere((c) => c.cardNumber == cardNumber);
-      final removed = cards.length < initialLength;
+      final db = await _db;
+      final deleted = await db.delete(
+        'credit_cards',
+        where: 'cardNumber = ?',
+        whereArgs: [cardNumber],
+      );
 
-      if (!removed) return Left(CardNotFoundFailure());
+      if (deleted == 0) return Left(CardNotFoundFailure());
 
-      final jsonList = cards.map((c) => json.encode(c.toJson())).toList();
-      final success = await _preferences.setStringList(_key, jsonList);
-
-      if (!success) {
-        return Left(CacheFailure("Failed to delete the card."));
-      }
       return const Right(null);
     } catch (e) {
-      return Left(CacheFailure(e.toString()));
+      debugPrint('DeleteCard Error: $e');
+      return Left(CacheFailure('Failed to delete card'));
     }
   }
 
   @override
   Future<Either<Failure, List<CreditCardDto>>> getCards() async {
     try {
-      final cards = await _getCardsOrThrow();
+      final db = await _db;
+      final maps = await db.query('credit_cards');
+
+      final cards = maps.map((map) {
+        return CreditCardDto(
+          cardNumber: map['cardNumber'] as String,
+          cardType: CardType.values.firstWhere(
+            (e) => e.name == map['cardType'],
+            orElse: () => CardType.invalid,
+          ),
+          cardHolderName: map['cardHolderName'] as String,
+          month: map['month'] as int?,
+          year: map['year'] as int?,
+          cvv: map['cvv'] as int?,
+          issuingCountry: CountryDto.fromJson(
+            jsonDecode(map['issuingCountry'] as String),
+          ),
+        );
+      }).toList();
+
       return Right(cards);
     } catch (e) {
-      return Left(CacheFailure(e.toString()));
+      debugPrint('GetCards Error: $e');
+      return Left(CacheFailure('Failed to load cards'));
     }
   }
 
@@ -77,15 +104,15 @@ class CreditCardRepository implements ICreditCardRepository {
   Future<Either<Failure, List<CountryDto>>> getCountries() async {
     try {
       final response = await http.get(
-          Uri.parse("https://restcountries.com/v3.1/all?fields=name,cca2"));
+          Uri.parse('https://restcountries.com/v3.1/all?fields=name,cca2'));
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = jsonDecode(response.body);
 
         final countries = jsonData.map((json) {
           return CountryDto(
-            name: json['name']['common'] ?? '',
-            code: json['cca2'] ?? '',
+            name: json['name']['common'],
+            code: json['cca2'],
           );
         }).toList();
 
@@ -93,22 +120,11 @@ class CreditCardRepository implements ICreditCardRepository {
 
         return Right(countries);
       } else {
-        return Left(ServerFailure("Failed to load countries"));
+        return Left(ServerFailure('Failed to load countries'));
       }
     } catch (e) {
-      return Left(ServerFailure("Unexpected error: ${e.toString()}"));
-    }
-  }
-
-  /// Helper method to get cards or throw CacheFailure
-  Future<List<CreditCardDto>> _getCardsOrThrow() async {
-    final jsonList = _preferences.getStringList(_key) ?? [];
-    try {
-      return jsonList
-          .map((e) => CreditCardDto.fromJson(json.decode(e)))
-          .toList();
-    } catch (_) {
-      throw CacheFailure("Failed to read stored cards.");
+      debugPrint('GetCountries Error: $e');
+      return Left(ServerFailure('Unexpected error: $e'));
     }
   }
 }

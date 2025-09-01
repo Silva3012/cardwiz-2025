@@ -10,7 +10,7 @@ class AppRouter extends RootStackRouter {
           initial: true,
           children: [
             AutoRoute(page: AddCardRoute.page),
-            AutoRoute(page: PlaceHolderRoute.page),
+            AutoRoute(page: CreditCardListRoute.page),
             AutoRoute(page: PlaceHolderRoute.page),
           ],
         )

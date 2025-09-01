@@ -14,7 +14,8 @@ _$CreditCardDtoImpl _$$CreditCardDtoImplFromJson(Map<String, dynamic> json) =>
       month: (json['month'] as num?)?.toInt(),
       year: (json['year'] as num?)?.toInt(),
       cvv: (json['cvv'] as num?)?.toInt(),
-      issuingCountry: json['issuingCountry'] as String,
+      issuingCountry:
+          CountryDto.fromJson(json['issuingCountry'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$CreditCardDtoImplToJson(_$CreditCardDtoImpl instance) =>
