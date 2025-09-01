@@ -14,7 +14,7 @@ class BannedCountriesPage extends StatefulWidget {
 }
 
 class _BannedCountriesPageState extends State<BannedCountriesPage> {
-  final _service = BannedCountriesService();
+  final _bannedCountriesService = BannedCountriesService();
   List<String> bannedCountryCodes = [];
   String? selectedCountryName;
 
@@ -26,12 +26,12 @@ class _BannedCountriesPageState extends State<BannedCountriesPage> {
   }
 
   Future<void> _loadBannedCountries() async {
-    final codes = await _service.loadBannedCountries();
+    final codes = await _bannedCountriesService.loadBannedCountries();
     setState(() => bannedCountryCodes = codes);
   }
 
   Future<void> _toggleBannedCountry(CountryDto country) async {
-    await _service.toggleCountry(country, bannedCountryCodes);
+    await _bannedCountriesService.toggleCountry(country, bannedCountryCodes);
     _loadBannedCountries();
   }
 
@@ -85,7 +85,7 @@ class _BannedCountriesPageState extends State<BannedCountriesPage> {
                       child: Text(
                         country.name,
                         style: TextStyle(
-                          color: _service.isCountryBanned(
+                          color: _bannedCountriesService.isCountryBanned(
                                   country, bannedCountryCodes)
                               ? Colors.redAccent
                               : Colors.white,
@@ -149,7 +149,7 @@ class _BannedCountriesPageState extends State<BannedCountriesPage> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
-                            if (_service.isCountryBanned(
+                            if (_bannedCountriesService.isCountryBanned(
                                 country, bannedCountryCodes))
                               const Icon(Icons.block, color: Colors.redAccent),
                           ],

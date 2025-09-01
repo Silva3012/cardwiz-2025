@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'card_number_field.dart';
 import 'issuing_country_field.dart';
-import 'submit_button.dart';
+import 'submit_button/submit_button.dart';
 
 class CreditCardForm extends StatefulWidget {
   const CreditCardForm({super.key});
@@ -24,8 +24,8 @@ class _CreditCardFormState extends State<CreditCardForm> {
   final _cardHolderNameController = TextEditingController();
   final _expiryDateController = TextEditingController();
 
-  String? _selectedCountryCode; // store the country code
-  String? _selectedCountryName; // keep name for display
+  String? _selectedCountryCode;
+  String? _selectedCountryName;
   List<String> bannedCountryCodes = [];
 
   @override
@@ -91,7 +91,6 @@ class _CreditCardFormState extends State<CreditCardForm> {
                             selectedCountryCode: _selectedCountryCode,
                             selectedCountryName: _selectedCountryName,
                             onChanged: _onCountryChanged,
-                            // bannedCountryCodes: bannedCountryCodes,
                           ),
                         ),
                       ],
@@ -100,7 +99,6 @@ class _CreditCardFormState extends State<CreditCardForm> {
                     ExpiryDateField(controller: _expiryDateController),
                     const SizedBox(height: 16),
                     SubmitButton(
-                      formKey: _formKey,
                       cardNumberController: _cardNumberController,
                       cvvController: _cvvController,
                       selectedCountryCode: _selectedCountryCode,

@@ -7,22 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CreditCardListPage extends StatelessWidget {
   const CreditCardListPage({super.key});
 
-  Color _getCardColor(int index) {
-    // Just a simple color palette for cards
-    final colors = [
-      Colors.blue,
-      Colors.black87,
-      Colors.teal,
-      Colors.deepOrange,
-      Colors.purple,
-      Colors.green,
-    ];
-    return colors[index % colors.length];
-  }
-
   @override
   Widget build(BuildContext context) {
-    // Trigger loading cards
     context.read<CreditCardBloc>().add(const CreditCardEvent.onGetCards());
 
     return Scaffold(
@@ -73,8 +59,6 @@ class CreditCardListPage extends StatelessWidget {
             itemBuilder: (context, index) {
               final card = cards[index];
               final color = _getCardColor(index);
-
-              // Safe last 4 digits
               final last4 = card.cardNumber.length >= 4
                   ? card.cardNumber.substring(card.cardNumber.length - 4)
                   : card.cardNumber;
@@ -177,5 +161,17 @@ class CreditCardListPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Color _getCardColor(int index) {
+    final colors = [
+      Colors.blue,
+      Colors.black87,
+      Colors.teal,
+      Colors.deepOrange,
+      Colors.purple,
+      Colors.green,
+    ];
+    return colors[index % colors.length];
   }
 }
