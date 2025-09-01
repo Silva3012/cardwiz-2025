@@ -1,4 +1,4 @@
-import 'package:cardwiz/core/utils/validator_service.dart';
+import 'package:cardwiz/core/utils/card_validator_service.dart';
 import 'package:cardwiz/presentation/add_card/widgets/cardwiz_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +11,7 @@ class CardHolderNameField extends StatelessWidget {
     return CardWizTextField(
       label: 'Cardholder Name',
       controller: controller,
-      validator: ValidatorService.validateCardHolderName,
+      validator: CardValidatorService.validateName,
     );
   }
 }

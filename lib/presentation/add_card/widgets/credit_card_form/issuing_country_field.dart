@@ -1,5 +1,6 @@
-import 'package:cardwiz/core/utils/validator_service.dart';
+import 'package:cardwiz/application/credit_card/credit_card_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class IssuingCountryField extends StatelessWidget {
   const IssuingCountryField({
@@ -11,37 +12,81 @@ class IssuingCountryField extends StatelessWidget {
   final String? selectedCountry;
   final void Function(String?) onChanged;
 
-  final List<String> _countries = const [
-    'USA',
-    'UK',
-    'Canada',
-    'Australia',
-    'Germany',
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField<String>(
-      value: selectedCountry,
-      decoration: InputDecoration(
-        labelText: 'Issuing Country',
-        filled: true,
-        fillColor: const Color(0xFF1C1C1C),
-        labelStyle: const TextStyle(color: Colors.white70),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
-        ),
-      ),
-      dropdownColor: const Color(0xFF101820),
-      items: _countries
-          .map((c) => DropdownMenuItem(
-                value: c,
-                child: Text(c, style: const TextStyle(color: Colors.white)),
-              ))
-          .toList(),
-      onChanged: onChanged,
-      validator: ValidatorService.validateIssuingCountry,
+    context.read<CreditCardBloc>().add(const CreditCardEvent.onGetCountries());
+
+    return BlocBuilder<CreditCardBloc, CreditCardState>(
+      builder: (context, state) {
+        if (state.isLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        final List<String> countryNames =
+            state.countries.map((c) => c.name).toList();
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Issuing Country",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey.shade600,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+            const SizedBox(height: 6),
+            DropdownButtonFormField<String>(
+              value: selectedCountry,
+              isExpanded: true,
+              dropdownColor: Colors.white,
+              style: const TextStyle(color: Colors.black),
+              decoration: InputDecoration(
+                hintStyle: TextStyle(color: Colors.grey.shade400),
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide:
+                      const BorderSide(color: Colors.greenAccent, width: 2),
+                ),
+              ),
+              items: countryNames
+                  .map(
+                    (c) => DropdownMenuItem(
+                      value: c,
+                      child: Text(
+                        c,
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  )
+                  .toList(),
+              onChanged: onChanged,
+            ),
+            if (state.failure != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  "Failed to load countries",
+                  style: TextStyle(color: Colors.red.shade700, fontSize: 12),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }

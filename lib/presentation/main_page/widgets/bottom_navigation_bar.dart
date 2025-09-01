@@ -31,7 +31,7 @@ class CardWizBottomNavigationBar extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.public),
-              label: "Banned",
+              label: "Banned Countries",
             ),
           ],
         );

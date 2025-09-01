@@ -1,13 +1,18 @@
 import 'dart:convert';
 
 import 'package:cardwiz/core/errors/failures.dart';
+import 'package:cardwiz/models/dto/country/country_dto.dart';
 import 'package:cardwiz/models/dto/credit_card/credit_card_dto.dart';
 import 'package:cardwiz/repositories/interfaces/i_credit_card_repository.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dartz/dartz.dart';
+import 'package:http/http.dart' as http;
 
+@LazySingleton(as: ICreditCardRepository)
 class CreditCardRepository implements ICreditCardRepository {
   static const _key = 'credit_cards';
+  static const _countriesKey = 'countries';
   late SharedPreferences _preferences;
 
   Future<void> init() async {
@@ -65,6 +70,33 @@ class CreditCardRepository implements ICreditCardRepository {
       return Right(cards);
     } catch (e) {
       return Left(CacheFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CountryDto>>> getCountries() async {
+    try {
+      final response = await http.get(
+          Uri.parse("https://restcountries.com/v3.1/all?fields=name,cca2"));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonData = jsonDecode(response.body);
+
+        final countries = jsonData.map((json) {
+          return CountryDto(
+            name: json['name']['common'] ?? '',
+            code: json['cca2'] ?? '',
+          );
+        }).toList();
+
+        countries.sort((a, b) => a.name.compareTo(b.name));
+
+        return Right(countries);
+      } else {
+        return Left(ServerFailure("Failed to load countries"));
+      }
+    } catch (e) {
+      return Left(ServerFailure("Unexpected error: ${e.toString()}"));
     }
   }
 

@@ -1,4 +1,4 @@
-import 'package:cardwiz/core/utils/validator_service.dart';
+import 'package:cardwiz/core/utils/card_validator_service.dart';
 import 'package:cardwiz/presentation/add_card/widgets/cardwiz_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +14,7 @@ class CvvField extends StatelessWidget {
       keyboardType: TextInputType.number,
       maxLength: 4,
       obscureText: true,
-      validator: ValidatorService.validateCvv,
+      validator: CardValidatorService.validateCVV,
     );
   }
 }

@@ -21,10 +21,11 @@ CreditCardDto _$CreditCardDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CreditCardDto {
   String get cardNumber => throw _privateConstructorUsedError;
-  String get cardType => throw _privateConstructorUsedError;
+  CardType get cardType => throw _privateConstructorUsedError;
   String get cardHolderName => throw _privateConstructorUsedError;
-  String get expiryDate => throw _privateConstructorUsedError;
-  String get cvv => throw _privateConstructorUsedError;
+  int? get month => throw _privateConstructorUsedError;
+  int? get year => throw _privateConstructorUsedError;
+  int? get cvv => throw _privateConstructorUsedError;
   String get issuingCountry => throw _privateConstructorUsedError;
 
   /// Serializes this CreditCardDto to a JSON map.
@@ -45,10 +46,11 @@ abstract class $CreditCardDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {String cardNumber,
-      String cardType,
+      CardType cardType,
       String cardHolderName,
-      String expiryDate,
-      String cvv,
+      int? month,
+      int? year,
+      int? cvv,
       String issuingCountry});
 }
 
@@ -70,8 +72,9 @@ class _$CreditCardDtoCopyWithImpl<$Res, $Val extends CreditCardDto>
     Object? cardNumber = null,
     Object? cardType = null,
     Object? cardHolderName = null,
-    Object? expiryDate = null,
-    Object? cvv = null,
+    Object? month = freezed,
+    Object? year = freezed,
+    Object? cvv = freezed,
     Object? issuingCountry = null,
   }) {
     return _then(_value.copyWith(
@@ -82,19 +85,23 @@ class _$CreditCardDtoCopyWithImpl<$Res, $Val extends CreditCardDto>
       cardType: null == cardType
           ? _value.cardType
           : cardType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CardType,
       cardHolderName: null == cardHolderName
           ? _value.cardHolderName
           : cardHolderName // ignore: cast_nullable_to_non_nullable
               as String,
-      expiryDate: null == expiryDate
-          ? _value.expiryDate
-          : expiryDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      cvv: null == cvv
+      month: freezed == month
+          ? _value.month
+          : month // ignore: cast_nullable_to_non_nullable
+              as int?,
+      year: freezed == year
+          ? _value.year
+          : year // ignore: cast_nullable_to_non_nullable
+              as int?,
+      cvv: freezed == cvv
           ? _value.cvv
           : cvv // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int?,
       issuingCountry: null == issuingCountry
           ? _value.issuingCountry
           : issuingCountry // ignore: cast_nullable_to_non_nullable
@@ -113,10 +120,11 @@ abstract class _$$CreditCardDtoImplCopyWith<$Res>
   @useResult
   $Res call(
       {String cardNumber,
-      String cardType,
+      CardType cardType,
       String cardHolderName,
-      String expiryDate,
-      String cvv,
+      int? month,
+      int? year,
+      int? cvv,
       String issuingCountry});
 }
 
@@ -136,8 +144,9 @@ class __$$CreditCardDtoImplCopyWithImpl<$Res>
     Object? cardNumber = null,
     Object? cardType = null,
     Object? cardHolderName = null,
-    Object? expiryDate = null,
-    Object? cvv = null,
+    Object? month = freezed,
+    Object? year = freezed,
+    Object? cvv = freezed,
     Object? issuingCountry = null,
   }) {
     return _then(_$CreditCardDtoImpl(
@@ -148,19 +157,23 @@ class __$$CreditCardDtoImplCopyWithImpl<$Res>
       cardType: null == cardType
           ? _value.cardType
           : cardType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CardType,
       cardHolderName: null == cardHolderName
           ? _value.cardHolderName
           : cardHolderName // ignore: cast_nullable_to_non_nullable
               as String,
-      expiryDate: null == expiryDate
-          ? _value.expiryDate
-          : expiryDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      cvv: null == cvv
+      month: freezed == month
+          ? _value.month
+          : month // ignore: cast_nullable_to_non_nullable
+              as int?,
+      year: freezed == year
+          ? _value.year
+          : year // ignore: cast_nullable_to_non_nullable
+              as int?,
+      cvv: freezed == cvv
           ? _value.cvv
           : cvv // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int?,
       issuingCountry: null == issuingCountry
           ? _value.issuingCountry
           : issuingCountry // ignore: cast_nullable_to_non_nullable
@@ -176,7 +189,8 @@ class _$CreditCardDtoImpl implements _CreditCardDto {
       {required this.cardNumber,
       required this.cardType,
       required this.cardHolderName,
-      required this.expiryDate,
+      required this.month,
+      required this.year,
       required this.cvv,
       required this.issuingCountry});
 
@@ -186,19 +200,21 @@ class _$CreditCardDtoImpl implements _CreditCardDto {
   @override
   final String cardNumber;
   @override
-  final String cardType;
+  final CardType cardType;
   @override
   final String cardHolderName;
   @override
-  final String expiryDate;
+  final int? month;
   @override
-  final String cvv;
+  final int? year;
+  @override
+  final int? cvv;
   @override
   final String issuingCountry;
 
   @override
   String toString() {
-    return 'CreditCardDto(cardNumber: $cardNumber, cardType: $cardType, cardHolderName: $cardHolderName, expiryDate: $expiryDate, cvv: $cvv, issuingCountry: $issuingCountry)';
+    return 'CreditCardDto(cardNumber: $cardNumber, cardType: $cardType, cardHolderName: $cardHolderName, month: $month, year: $year, cvv: $cvv, issuingCountry: $issuingCountry)';
   }
 
   @override
@@ -212,8 +228,8 @@ class _$CreditCardDtoImpl implements _CreditCardDto {
                 other.cardType == cardType) &&
             (identical(other.cardHolderName, cardHolderName) ||
                 other.cardHolderName == cardHolderName) &&
-            (identical(other.expiryDate, expiryDate) ||
-                other.expiryDate == expiryDate) &&
+            (identical(other.month, month) || other.month == month) &&
+            (identical(other.year, year) || other.year == year) &&
             (identical(other.cvv, cvv) || other.cvv == cvv) &&
             (identical(other.issuingCountry, issuingCountry) ||
                 other.issuingCountry == issuingCountry));
@@ -222,7 +238,7 @@ class _$CreditCardDtoImpl implements _CreditCardDto {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, cardNumber, cardType,
-      cardHolderName, expiryDate, cvv, issuingCountry);
+      cardHolderName, month, year, cvv, issuingCountry);
 
   /// Create a copy of CreditCardDto
   /// with the given fields replaced by the non-null parameter values.
@@ -243,10 +259,11 @@ class _$CreditCardDtoImpl implements _CreditCardDto {
 abstract class _CreditCardDto implements CreditCardDto {
   const factory _CreditCardDto(
       {required final String cardNumber,
-      required final String cardType,
+      required final CardType cardType,
       required final String cardHolderName,
-      required final String expiryDate,
-      required final String cvv,
+      required final int? month,
+      required final int? year,
+      required final int? cvv,
       required final String issuingCountry}) = _$CreditCardDtoImpl;
 
   factory _CreditCardDto.fromJson(Map<String, dynamic> json) =
@@ -255,13 +272,15 @@ abstract class _CreditCardDto implements CreditCardDto {
   @override
   String get cardNumber;
   @override
-  String get cardType;
+  CardType get cardType;
   @override
   String get cardHolderName;
   @override
-  String get expiryDate;
+  int? get month;
   @override
-  String get cvv;
+  int? get year;
+  @override
+  int? get cvv;
   @override
   String get issuingCountry;
 

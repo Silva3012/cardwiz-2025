@@ -21,6 +21,7 @@ mixin _$CreditCardEvent {
     required TResult Function() onGetCards,
     required TResult Function(CreditCardDto card) onAddCard,
     required TResult Function(String cardNumber) onDeleteCard,
+    required TResult Function() onGetCountries,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$CreditCardEvent {
     TResult? Function()? onGetCards,
     TResult? Function(CreditCardDto card)? onAddCard,
     TResult? Function(String cardNumber)? onDeleteCard,
+    TResult? Function()? onGetCountries,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$CreditCardEvent {
     TResult Function()? onGetCards,
     TResult Function(CreditCardDto card)? onAddCard,
     TResult Function(String cardNumber)? onDeleteCard,
+    TResult Function()? onGetCountries,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$CreditCardEvent {
     required TResult Function(OnGetCards value) onGetCards,
     required TResult Function(OnAddCard value) onAddCard,
     required TResult Function(OnDeleteCard value) onDeleteCard,
+    required TResult Function(OnGetCountries value) onGetCountries,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$CreditCardEvent {
     TResult? Function(OnGetCards value)? onGetCards,
     TResult? Function(OnAddCard value)? onAddCard,
     TResult? Function(OnDeleteCard value)? onDeleteCard,
+    TResult? Function(OnGetCountries value)? onGetCountries,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$CreditCardEvent {
     TResult Function(OnGetCards value)? onGetCards,
     TResult Function(OnAddCard value)? onAddCard,
     TResult Function(OnDeleteCard value)? onDeleteCard,
+    TResult Function(OnGetCountries value)? onGetCountries,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,6 +133,7 @@ class _$OnGetCardsImpl implements OnGetCards {
     required TResult Function() onGetCards,
     required TResult Function(CreditCardDto card) onAddCard,
     required TResult Function(String cardNumber) onDeleteCard,
+    required TResult Function() onGetCountries,
   }) {
     return onGetCards();
   }
@@ -137,6 +144,7 @@ class _$OnGetCardsImpl implements OnGetCards {
     TResult? Function()? onGetCards,
     TResult? Function(CreditCardDto card)? onAddCard,
     TResult? Function(String cardNumber)? onDeleteCard,
+    TResult? Function()? onGetCountries,
   }) {
     return onGetCards?.call();
   }
@@ -147,6 +155,7 @@ class _$OnGetCardsImpl implements OnGetCards {
     TResult Function()? onGetCards,
     TResult Function(CreditCardDto card)? onAddCard,
     TResult Function(String cardNumber)? onDeleteCard,
+    TResult Function()? onGetCountries,
     required TResult orElse(),
   }) {
     if (onGetCards != null) {
@@ -161,6 +170,7 @@ class _$OnGetCardsImpl implements OnGetCards {
     required TResult Function(OnGetCards value) onGetCards,
     required TResult Function(OnAddCard value) onAddCard,
     required TResult Function(OnDeleteCard value) onDeleteCard,
+    required TResult Function(OnGetCountries value) onGetCountries,
   }) {
     return onGetCards(this);
   }
@@ -171,6 +181,7 @@ class _$OnGetCardsImpl implements OnGetCards {
     TResult? Function(OnGetCards value)? onGetCards,
     TResult? Function(OnAddCard value)? onAddCard,
     TResult? Function(OnDeleteCard value)? onDeleteCard,
+    TResult? Function(OnGetCountries value)? onGetCountries,
   }) {
     return onGetCards?.call(this);
   }
@@ -181,6 +192,7 @@ class _$OnGetCardsImpl implements OnGetCards {
     TResult Function(OnGetCards value)? onGetCards,
     TResult Function(OnAddCard value)? onAddCard,
     TResult Function(OnDeleteCard value)? onDeleteCard,
+    TResult Function(OnGetCountries value)? onGetCountries,
     required TResult orElse(),
   }) {
     if (onGetCards != null) {
@@ -277,6 +289,7 @@ class _$OnAddCardImpl implements OnAddCard {
     required TResult Function() onGetCards,
     required TResult Function(CreditCardDto card) onAddCard,
     required TResult Function(String cardNumber) onDeleteCard,
+    required TResult Function() onGetCountries,
   }) {
     return onAddCard(card);
   }
@@ -287,6 +300,7 @@ class _$OnAddCardImpl implements OnAddCard {
     TResult? Function()? onGetCards,
     TResult? Function(CreditCardDto card)? onAddCard,
     TResult? Function(String cardNumber)? onDeleteCard,
+    TResult? Function()? onGetCountries,
   }) {
     return onAddCard?.call(card);
   }
@@ -297,6 +311,7 @@ class _$OnAddCardImpl implements OnAddCard {
     TResult Function()? onGetCards,
     TResult Function(CreditCardDto card)? onAddCard,
     TResult Function(String cardNumber)? onDeleteCard,
+    TResult Function()? onGetCountries,
     required TResult orElse(),
   }) {
     if (onAddCard != null) {
@@ -311,6 +326,7 @@ class _$OnAddCardImpl implements OnAddCard {
     required TResult Function(OnGetCards value) onGetCards,
     required TResult Function(OnAddCard value) onAddCard,
     required TResult Function(OnDeleteCard value) onDeleteCard,
+    required TResult Function(OnGetCountries value) onGetCountries,
   }) {
     return onAddCard(this);
   }
@@ -321,6 +337,7 @@ class _$OnAddCardImpl implements OnAddCard {
     TResult? Function(OnGetCards value)? onGetCards,
     TResult? Function(OnAddCard value)? onAddCard,
     TResult? Function(OnDeleteCard value)? onDeleteCard,
+    TResult? Function(OnGetCountries value)? onGetCountries,
   }) {
     return onAddCard?.call(this);
   }
@@ -331,6 +348,7 @@ class _$OnAddCardImpl implements OnAddCard {
     TResult Function(OnGetCards value)? onGetCards,
     TResult Function(OnAddCard value)? onAddCard,
     TResult Function(OnDeleteCard value)? onDeleteCard,
+    TResult Function(OnGetCountries value)? onGetCountries,
     required TResult orElse(),
   }) {
     if (onAddCard != null) {
@@ -425,6 +443,7 @@ class _$OnDeleteCardImpl implements OnDeleteCard {
     required TResult Function() onGetCards,
     required TResult Function(CreditCardDto card) onAddCard,
     required TResult Function(String cardNumber) onDeleteCard,
+    required TResult Function() onGetCountries,
   }) {
     return onDeleteCard(cardNumber);
   }
@@ -435,6 +454,7 @@ class _$OnDeleteCardImpl implements OnDeleteCard {
     TResult? Function()? onGetCards,
     TResult? Function(CreditCardDto card)? onAddCard,
     TResult? Function(String cardNumber)? onDeleteCard,
+    TResult? Function()? onGetCountries,
   }) {
     return onDeleteCard?.call(cardNumber);
   }
@@ -445,6 +465,7 @@ class _$OnDeleteCardImpl implements OnDeleteCard {
     TResult Function()? onGetCards,
     TResult Function(CreditCardDto card)? onAddCard,
     TResult Function(String cardNumber)? onDeleteCard,
+    TResult Function()? onGetCountries,
     required TResult orElse(),
   }) {
     if (onDeleteCard != null) {
@@ -459,6 +480,7 @@ class _$OnDeleteCardImpl implements OnDeleteCard {
     required TResult Function(OnGetCards value) onGetCards,
     required TResult Function(OnAddCard value) onAddCard,
     required TResult Function(OnDeleteCard value) onDeleteCard,
+    required TResult Function(OnGetCountries value) onGetCountries,
   }) {
     return onDeleteCard(this);
   }
@@ -469,6 +491,7 @@ class _$OnDeleteCardImpl implements OnDeleteCard {
     TResult? Function(OnGetCards value)? onGetCards,
     TResult? Function(OnAddCard value)? onAddCard,
     TResult? Function(OnDeleteCard value)? onDeleteCard,
+    TResult? Function(OnGetCountries value)? onGetCountries,
   }) {
     return onDeleteCard?.call(this);
   }
@@ -479,6 +502,7 @@ class _$OnDeleteCardImpl implements OnDeleteCard {
     TResult Function(OnGetCards value)? onGetCards,
     TResult Function(OnAddCard value)? onAddCard,
     TResult Function(OnDeleteCard value)? onDeleteCard,
+    TResult Function(OnGetCountries value)? onGetCountries,
     required TResult orElse(),
   }) {
     if (onDeleteCard != null) {
@@ -502,8 +526,126 @@ abstract class OnDeleteCard implements CreditCardEvent {
 }
 
 /// @nodoc
+abstract class _$$OnGetCountriesImplCopyWith<$Res> {
+  factory _$$OnGetCountriesImplCopyWith(_$OnGetCountriesImpl value,
+          $Res Function(_$OnGetCountriesImpl) then) =
+      __$$OnGetCountriesImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$OnGetCountriesImplCopyWithImpl<$Res>
+    extends _$CreditCardEventCopyWithImpl<$Res, _$OnGetCountriesImpl>
+    implements _$$OnGetCountriesImplCopyWith<$Res> {
+  __$$OnGetCountriesImplCopyWithImpl(
+      _$OnGetCountriesImpl _value, $Res Function(_$OnGetCountriesImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CreditCardEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$OnGetCountriesImpl implements OnGetCountries {
+  const _$OnGetCountriesImpl();
+
+  @override
+  String toString() {
+    return 'CreditCardEvent.onGetCountries()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$OnGetCountriesImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() onGetCards,
+    required TResult Function(CreditCardDto card) onAddCard,
+    required TResult Function(String cardNumber) onDeleteCard,
+    required TResult Function() onGetCountries,
+  }) {
+    return onGetCountries();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? onGetCards,
+    TResult? Function(CreditCardDto card)? onAddCard,
+    TResult? Function(String cardNumber)? onDeleteCard,
+    TResult? Function()? onGetCountries,
+  }) {
+    return onGetCountries?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? onGetCards,
+    TResult Function(CreditCardDto card)? onAddCard,
+    TResult Function(String cardNumber)? onDeleteCard,
+    TResult Function()? onGetCountries,
+    required TResult orElse(),
+  }) {
+    if (onGetCountries != null) {
+      return onGetCountries();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OnGetCards value) onGetCards,
+    required TResult Function(OnAddCard value) onAddCard,
+    required TResult Function(OnDeleteCard value) onDeleteCard,
+    required TResult Function(OnGetCountries value) onGetCountries,
+  }) {
+    return onGetCountries(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(OnGetCards value)? onGetCards,
+    TResult? Function(OnAddCard value)? onAddCard,
+    TResult? Function(OnDeleteCard value)? onDeleteCard,
+    TResult? Function(OnGetCountries value)? onGetCountries,
+  }) {
+    return onGetCountries?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnGetCards value)? onGetCards,
+    TResult Function(OnAddCard value)? onAddCard,
+    TResult Function(OnDeleteCard value)? onDeleteCard,
+    TResult Function(OnGetCountries value)? onGetCountries,
+    required TResult orElse(),
+  }) {
+    if (onGetCountries != null) {
+      return onGetCountries(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class OnGetCountries implements CreditCardEvent {
+  const factory OnGetCountries() = _$OnGetCountriesImpl;
+}
+
+/// @nodoc
 mixin _$CreditCardState {
   List<CreditCardDto> get cards => throw _privateConstructorUsedError;
+  List<CountryDto> get countries => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   Failure? get failure => throw _privateConstructorUsedError;
 
@@ -520,7 +662,11 @@ abstract class $CreditCardStateCopyWith<$Res> {
           CreditCardState value, $Res Function(CreditCardState) then) =
       _$CreditCardStateCopyWithImpl<$Res, CreditCardState>;
   @useResult
-  $Res call({List<CreditCardDto> cards, bool isLoading, Failure? failure});
+  $Res call(
+      {List<CreditCardDto> cards,
+      List<CountryDto> countries,
+      bool isLoading,
+      Failure? failure});
 }
 
 /// @nodoc
@@ -539,6 +685,7 @@ class _$CreditCardStateCopyWithImpl<$Res, $Val extends CreditCardState>
   @override
   $Res call({
     Object? cards = null,
+    Object? countries = null,
     Object? isLoading = null,
     Object? failure = freezed,
   }) {
@@ -547,6 +694,10 @@ class _$CreditCardStateCopyWithImpl<$Res, $Val extends CreditCardState>
           ? _value.cards
           : cards // ignore: cast_nullable_to_non_nullable
               as List<CreditCardDto>,
+      countries: null == countries
+          ? _value.countries
+          : countries // ignore: cast_nullable_to_non_nullable
+              as List<CountryDto>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -567,7 +718,11 @@ abstract class _$$CreditCardStateImplCopyWith<$Res>
       __$$CreditCardStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<CreditCardDto> cards, bool isLoading, Failure? failure});
+  $Res call(
+      {List<CreditCardDto> cards,
+      List<CountryDto> countries,
+      bool isLoading,
+      Failure? failure});
 }
 
 /// @nodoc
@@ -584,6 +739,7 @@ class __$$CreditCardStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? cards = null,
+    Object? countries = null,
     Object? isLoading = null,
     Object? failure = freezed,
   }) {
@@ -592,6 +748,10 @@ class __$$CreditCardStateImplCopyWithImpl<$Res>
           ? _value._cards
           : cards // ignore: cast_nullable_to_non_nullable
               as List<CreditCardDto>,
+      countries: null == countries
+          ? _value._countries
+          : countries // ignore: cast_nullable_to_non_nullable
+              as List<CountryDto>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -609,9 +769,11 @@ class __$$CreditCardStateImplCopyWithImpl<$Res>
 class _$CreditCardStateImpl implements _CreditCardState {
   _$CreditCardStateImpl(
       {required final List<CreditCardDto> cards,
+      required final List<CountryDto> countries,
       required this.isLoading,
       this.failure})
-      : _cards = cards;
+      : _cards = cards,
+        _countries = countries;
 
   final List<CreditCardDto> _cards;
   @override
@@ -621,6 +783,14 @@ class _$CreditCardStateImpl implements _CreditCardState {
     return EqualUnmodifiableListView(_cards);
   }
 
+  final List<CountryDto> _countries;
+  @override
+  List<CountryDto> get countries {
+    if (_countries is EqualUnmodifiableListView) return _countries;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_countries);
+  }
+
   @override
   final bool isLoading;
   @override
@@ -628,7 +798,7 @@ class _$CreditCardStateImpl implements _CreditCardState {
 
   @override
   String toString() {
-    return 'CreditCardState(cards: $cards, isLoading: $isLoading, failure: $failure)';
+    return 'CreditCardState(cards: $cards, countries: $countries, isLoading: $isLoading, failure: $failure)';
   }
 
   @override
@@ -637,14 +807,20 @@ class _$CreditCardStateImpl implements _CreditCardState {
         (other.runtimeType == runtimeType &&
             other is _$CreditCardStateImpl &&
             const DeepCollectionEquality().equals(other._cards, _cards) &&
+            const DeepCollectionEquality()
+                .equals(other._countries, _countries) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_cards), isLoading, failure);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_cards),
+      const DeepCollectionEquality().hash(_countries),
+      isLoading,
+      failure);
 
   /// Create a copy of CreditCardState
   /// with the given fields replaced by the non-null parameter values.
@@ -659,11 +835,14 @@ class _$CreditCardStateImpl implements _CreditCardState {
 abstract class _CreditCardState implements CreditCardState {
   factory _CreditCardState(
       {required final List<CreditCardDto> cards,
+      required final List<CountryDto> countries,
       required final bool isLoading,
       final Failure? failure}) = _$CreditCardStateImpl;
 
   @override
   List<CreditCardDto> get cards;
+  @override
+  List<CountryDto> get countries;
   @override
   bool get isLoading;
   @override
