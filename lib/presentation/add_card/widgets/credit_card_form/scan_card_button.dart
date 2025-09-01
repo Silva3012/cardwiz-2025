@@ -17,23 +17,32 @@ class ScanCardButton extends StatelessWidget {
 
   final TextEditingController cardNumberController;
   final TextEditingController cardHolderNameController;
-
   final CardScanOptions scanOptions;
 
-  Future<void> _scanCard(BuildContext context) async {
+  /// Handles the card scanning logic
+  Future<void> scanCard({
+    required BuildContext context,
+    TextEditingController? cardNumberController,
+    TextEditingController? cardHolderNameController,
+  }) async {
     try {
       final cardDetails = await CardScanner.scanCard(scanOptions: scanOptions);
       if (!context.mounted || cardDetails == null) return;
 
-      cardNumberController.text = cardDetails.cardNumber;
-      cardHolderNameController.text = cardDetails.cardHolderName;
+      // Update controllers safely
+      if (cardNumberController != null) {
+        cardNumberController.text = cardDetails.cardNumber;
+      }
+      if (cardHolderNameController != null) {
+        cardHolderNameController.text = cardDetails.cardHolderName;
+      }
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Card scanned successfully!')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to scan card')),
+        SnackBar(content: Text('Failed to scan card: $e')),
       );
     }
   }
@@ -41,7 +50,11 @@ class ScanCardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      onPressed: () => _scanCard(context),
+      onPressed: () => scanCard(
+        context: context,
+        cardNumberController: cardNumberController,
+        cardHolderNameController: cardHolderNameController,
+      ),
       icon: const Icon(Icons.camera_alt),
       label: const Text("Scan Card"),
       style: ElevatedButton.styleFrom(
