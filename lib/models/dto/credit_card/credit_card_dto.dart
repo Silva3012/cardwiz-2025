@@ -1,4 +1,5 @@
 import 'package:cardwiz/core/utils/card_type_enum.dart';
+import 'package:cardwiz/models/dto/country/country_dto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'credit_card_dto.freezed.dart';
@@ -13,17 +14,17 @@ class CreditCardDto with _$CreditCardDto {
     required int? month,
     required int? year,
     required int? cvv,
-    required String issuingCountry,
+    required CountryDto issuingCountry,
   }) = _CreditCardDto;
 
-  factory CreditCardDto.empty() => const CreditCardDto(
+  factory CreditCardDto.empty() => CreditCardDto(
         cardNumber: '',
         cardType: CardType.invalid,
         cardHolderName: '',
         month: null,
         year: null,
         cvv: null,
-        issuingCountry: '',
+        issuingCountry: CountryDto.empty(),
       );
 
   factory CreditCardDto.fromJson(Map<String, dynamic> json) =>

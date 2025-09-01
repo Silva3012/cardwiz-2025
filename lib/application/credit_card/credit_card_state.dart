@@ -6,6 +6,7 @@ class CreditCardState with _$CreditCardState {
     required List<CreditCardDto> cards,
     required List<CountryDto> countries,
     required bool isLoading,
+    bool? isCardAdded,
     Failure? failure,
   }) = _CreditCardState;
 
@@ -14,5 +15,6 @@ class CreditCardState with _$CreditCardState {
         countries: [],
         isLoading: false,
         failure: null,
+        isCardAdded: null,
       );
 }

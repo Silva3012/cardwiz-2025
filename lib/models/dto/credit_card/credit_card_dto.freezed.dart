@@ -26,7 +26,7 @@ mixin _$CreditCardDto {
   int? get month => throw _privateConstructorUsedError;
   int? get year => throw _privateConstructorUsedError;
   int? get cvv => throw _privateConstructorUsedError;
-  String get issuingCountry => throw _privateConstructorUsedError;
+  CountryDto get issuingCountry => throw _privateConstructorUsedError;
 
   /// Serializes this CreditCardDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,7 +51,9 @@ abstract class $CreditCardDtoCopyWith<$Res> {
       int? month,
       int? year,
       int? cvv,
-      String issuingCountry});
+      CountryDto issuingCountry});
+
+  $CountryDtoCopyWith<$Res> get issuingCountry;
 }
 
 /// @nodoc
@@ -105,8 +107,18 @@ class _$CreditCardDtoCopyWithImpl<$Res, $Val extends CreditCardDto>
       issuingCountry: null == issuingCountry
           ? _value.issuingCountry
           : issuingCountry // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CountryDto,
     ) as $Val);
+  }
+
+  /// Create a copy of CreditCardDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CountryDtoCopyWith<$Res> get issuingCountry {
+    return $CountryDtoCopyWith<$Res>(_value.issuingCountry, (value) {
+      return _then(_value.copyWith(issuingCountry: value) as $Val);
+    });
   }
 }
 
@@ -125,7 +137,10 @@ abstract class _$$CreditCardDtoImplCopyWith<$Res>
       int? month,
       int? year,
       int? cvv,
-      String issuingCountry});
+      CountryDto issuingCountry});
+
+  @override
+  $CountryDtoCopyWith<$Res> get issuingCountry;
 }
 
 /// @nodoc
@@ -177,7 +192,7 @@ class __$$CreditCardDtoImplCopyWithImpl<$Res>
       issuingCountry: null == issuingCountry
           ? _value.issuingCountry
           : issuingCountry // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CountryDto,
     ));
   }
 }
@@ -210,7 +225,7 @@ class _$CreditCardDtoImpl implements _CreditCardDto {
   @override
   final int? cvv;
   @override
-  final String issuingCountry;
+  final CountryDto issuingCountry;
 
   @override
   String toString() {
@@ -264,7 +279,7 @@ abstract class _CreditCardDto implements CreditCardDto {
       required final int? month,
       required final int? year,
       required final int? cvv,
-      required final String issuingCountry}) = _$CreditCardDtoImpl;
+      required final CountryDto issuingCountry}) = _$CreditCardDtoImpl;
 
   factory _CreditCardDto.fromJson(Map<String, dynamic> json) =
       _$CreditCardDtoImpl.fromJson;
@@ -282,7 +297,7 @@ abstract class _CreditCardDto implements CreditCardDto {
   @override
   int? get cvv;
   @override
-  String get issuingCountry;
+  CountryDto get issuingCountry;
 
   /// Create a copy of CreditCardDto
   /// with the given fields replaced by the non-null parameter values.

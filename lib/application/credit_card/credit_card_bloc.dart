@@ -48,31 +48,33 @@ class CreditCardBloc extends Bloc<CreditCardEvent, CreditCardState> {
             ),
           );
           final result = await _creditCardRepository.addCard(e.card);
-          result.fold(
-            (failure) => emit(
+          if (result.isLeft()) {
+            emit(
               state.copyWith(
                 isLoading: false,
-                failure: failure,
+                failure: result.fold((f) => f, (_) => null),
+                isCardAdded: false,
               ),
-            ),
-            (_) async {
-              final updatedResult = await _creditCardRepository.getCards();
-              updatedResult.fold(
-                (failure) => emit(
-                  state.copyWith(
-                    isLoading: false,
-                    failure: failure,
-                  ),
+            );
+          } else {
+            final updatedResult = await _creditCardRepository.getCards();
+            updatedResult.fold(
+              (failure) => emit(
+                state.copyWith(
+                  isLoading: false,
+                  failure: failure,
+                  isCardAdded: false,
                 ),
-                (cards) => emit(
-                  state.copyWith(
-                    isLoading: false,
-                    cards: cards,
-                  ),
+              ),
+              (cards) => emit(
+                state.copyWith(
+                  isLoading: false,
+                  cards: cards,
+                  isCardAdded: true,
                 ),
-              );
-            },
-          );
+              ),
+            );
+          }
         },
         onDeleteCard: (e) async {
           emit(
@@ -82,31 +84,30 @@ class CreditCardBloc extends Bloc<CreditCardEvent, CreditCardState> {
             ),
           );
           final result = await _creditCardRepository.deleteCard(e.cardNumber);
-          result.fold(
-            (failure) => emit(
+          if (result.isLeft()) {
+            emit(
               state.copyWith(
                 isLoading: false,
-                failure: failure,
+                failure: result.fold((f) => f, (_) => null),
               ),
-            ),
-            (_) async {
-              final updatedResult = await _creditCardRepository.getCards();
-              updatedResult.fold(
-                (failure) => emit(
-                  state.copyWith(
-                    isLoading: false,
-                    failure: failure,
-                  ),
+            );
+          } else {
+            final updatedResult = await _creditCardRepository.getCards();
+            updatedResult.fold(
+              (failure) => emit(
+                state.copyWith(
+                  isLoading: false,
+                  failure: failure,
                 ),
-                (cards) => emit(
-                  state.copyWith(
-                    isLoading: false,
-                    cards: cards,
-                  ),
+              ),
+              (cards) => emit(
+                state.copyWith(
+                  isLoading: false,
+                  cards: cards,
                 ),
-              );
-            },
-          );
+              ),
+            );
+          }
         },
         onGetCountries: (e) async {
           emit(

@@ -10,9 +10,3 @@ final cardWizSl = GetIt.instance;
   asExtension: true,
 )
 Future<void> configureDependencies() async => cardWizSl.init();
-
-// @module
-// abstract class RegisterDependencies {
-//   @lazySingleton
-//   ICreditCardRepository get creditCardRepository => CreditCardRepository();
-// }

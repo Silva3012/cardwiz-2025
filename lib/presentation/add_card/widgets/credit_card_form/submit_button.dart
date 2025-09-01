@@ -1,5 +1,6 @@
 import 'package:cardwiz/application/credit_card/credit_card_bloc.dart';
 import 'package:cardwiz/core/utils/card_validator_service.dart';
+import 'package:cardwiz/models/dto/country/country_dto.dart';
 import 'package:cardwiz/models/dto/credit_card/credit_card_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,7 @@ class SubmitButton extends StatelessWidget {
   final TextEditingController expiryDateController;
   final String? selectedCountry;
 
-  void _onSubmit(BuildContext context) {
+  void _submitCard(BuildContext context) {
     final nameError =
         CardValidatorService.validateName(cardHolderNameController.text);
     final numberError =
@@ -64,6 +65,8 @@ class SubmitButton extends StatelessWidget {
 
     final cvv = int.tryParse(cvvController.text.trim());
 
+    final countryDto = CountryDto(name: selectedCountry!, code: '');
+
     final card = CreditCardDto(
       cardNumber: cleanedNumber,
       cardType: cardType,
@@ -71,11 +74,13 @@ class SubmitButton extends StatelessWidget {
       month: month,
       year: year,
       cvv: cvv,
-      issuingCountry: selectedCountry!,
+      issuingCountry: countryDto,
     );
 
     context.read<CreditCardBloc>().add(OnAddCard(card: card));
+  }
 
+  void _clearFields() {
     cardNumberController.clear();
     cvvController.clear();
     cardHolderNameController.clear();
@@ -84,14 +89,30 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () => _onSubmit(context),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.greenAccent,
-        foregroundColor: Colors.black,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+    return BlocListener<CreditCardBloc, CreditCardState>(
+      listenWhen: (previous, current) =>
+          previous.isCardAdded != current.isCardAdded,
+      listener: (context, state) {
+        if (state.isCardAdded == true) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Card added successfully!')),
+          );
+          _clearFields();
+        } else if (state.isCardAdded == false) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Failed to add card.')),
+          );
+        }
+      },
+      child: ElevatedButton(
+        onPressed: () => _submitCard(context),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.greenAccent,
+          foregroundColor: Colors.black,
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        ),
+        child: const Text('Add Card'),
       ),
-      child: const Text('Add Card'),
     );
   }
 }
