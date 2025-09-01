@@ -22,7 +22,6 @@ CountryDto _$CountryDtoFromJson(Map<String, dynamic> json) {
 mixin _$CountryDto {
   String get name => throw _privateConstructorUsedError;
   String get code => throw _privateConstructorUsedError;
-  String get flagUrl => throw _privateConstructorUsedError;
 
   /// Serializes this CountryDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +39,7 @@ abstract class $CountryDtoCopyWith<$Res> {
           CountryDto value, $Res Function(CountryDto) then) =
       _$CountryDtoCopyWithImpl<$Res, CountryDto>;
   @useResult
-  $Res call({String name, String code, String flagUrl});
+  $Res call({String name, String code});
 }
 
 /// @nodoc
@@ -60,7 +59,6 @@ class _$CountryDtoCopyWithImpl<$Res, $Val extends CountryDto>
   $Res call({
     Object? name = null,
     Object? code = null,
-    Object? flagUrl = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -70,10 +68,6 @@ class _$CountryDtoCopyWithImpl<$Res, $Val extends CountryDto>
       code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      flagUrl: null == flagUrl
-          ? _value.flagUrl
-          : flagUrl // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -87,7 +81,7 @@ abstract class _$$CountryDtoImplCopyWith<$Res>
       __$$CountryDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String code, String flagUrl});
+  $Res call({String name, String code});
 }
 
 /// @nodoc
@@ -105,7 +99,6 @@ class __$$CountryDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? code = null,
-    Object? flagUrl = null,
   }) {
     return _then(_$CountryDtoImpl(
       name: null == name
@@ -116,10 +109,6 @@ class __$$CountryDtoImplCopyWithImpl<$Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      flagUrl: null == flagUrl
-          ? _value.flagUrl
-          : flagUrl // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -127,8 +116,7 @@ class __$$CountryDtoImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CountryDtoImpl implements _CountryDto {
-  const _$CountryDtoImpl(
-      {required this.name, required this.code, required this.flagUrl});
+  const _$CountryDtoImpl({required this.name, required this.code});
 
   factory _$CountryDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$CountryDtoImplFromJson(json);
@@ -137,13 +125,6 @@ class _$CountryDtoImpl implements _CountryDto {
   final String name;
   @override
   final String code;
-  @override
-  final String flagUrl;
-
-  @override
-  String toString() {
-    return 'CountryDto(name: $name, code: $code, flagUrl: $flagUrl)';
-  }
 
   @override
   bool operator ==(Object other) {
@@ -151,13 +132,12 @@ class _$CountryDtoImpl implements _CountryDto {
         (other.runtimeType == runtimeType &&
             other is _$CountryDtoImpl &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.code, code) || other.code == code) &&
-            (identical(other.flagUrl, flagUrl) || other.flagUrl == flagUrl));
+            (identical(other.code, code) || other.code == code));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, code, flagUrl);
+  int get hashCode => Object.hash(runtimeType, name, code);
 
   /// Create a copy of CountryDto
   /// with the given fields replaced by the non-null parameter values.
@@ -178,8 +158,7 @@ class _$CountryDtoImpl implements _CountryDto {
 abstract class _CountryDto implements CountryDto {
   const factory _CountryDto(
       {required final String name,
-      required final String code,
-      required final String flagUrl}) = _$CountryDtoImpl;
+      required final String code}) = _$CountryDtoImpl;
 
   factory _CountryDto.fromJson(Map<String, dynamic> json) =
       _$CountryDtoImpl.fromJson;
@@ -188,8 +167,6 @@ abstract class _CountryDto implements CountryDto {
   String get name;
   @override
   String get code;
-  @override
-  String get flagUrl;
 
   /// Create a copy of CountryDto
   /// with the given fields replaced by the non-null parameter values.

@@ -1,3 +1,4 @@
+import 'package:cardwiz/core/utils/card_type_enum.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'credit_card_dto.freezed.dart';
@@ -7,19 +8,21 @@ part 'credit_card_dto.g.dart';
 class CreditCardDto with _$CreditCardDto {
   const factory CreditCardDto({
     required String cardNumber,
-    required String cardType,
+    required CardType cardType,
     required String cardHolderName,
-    required String expiryDate,
-    required String cvv,
+    required int? month,
+    required int? year,
+    required int? cvv,
     required String issuingCountry,
   }) = _CreditCardDto;
 
   factory CreditCardDto.empty() => const CreditCardDto(
         cardNumber: '',
-        cardType: '',
+        cardType: CardType.invalid,
         cardHolderName: '',
-        expiryDate: '',
-        cvv: '',
+        month: null,
+        year: null,
+        cvv: null,
         issuingCountry: '',
       );
 

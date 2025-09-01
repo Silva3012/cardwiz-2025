@@ -14,3 +14,7 @@ class DuplicateCardFailure extends Failure {
 class CardNotFoundFailure extends Failure {
   CardNotFoundFailure() : super("Card not found.");
 }
+
+class ServerFailure extends Failure {
+  ServerFailure(super.message);
+}

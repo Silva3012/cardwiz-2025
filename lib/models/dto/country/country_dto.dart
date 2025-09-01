@@ -8,9 +8,16 @@ class CountryDto with _$CountryDto {
   const factory CountryDto({
     required String name,
     required String code,
-    required String flagUrl,
   }) = _CountryDto;
+
+  factory CountryDto.empty() => const CountryDto(
+        name: '',
+        code: '',
+      );
 
   factory CountryDto.fromJson(Map<String, dynamic> json) =>
       _$CountryDtoFromJson(json);
+
+  @override
+  String toString() => "Country: $name";
 }

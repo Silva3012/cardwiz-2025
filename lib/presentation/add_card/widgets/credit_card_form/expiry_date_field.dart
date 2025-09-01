@@ -1,6 +1,8 @@
-import 'package:cardwiz/core/utils/validator_service.dart';
+import 'package:cardwiz/core/utils/card_validator_service.dart';
+import 'package:cardwiz/core/utils/credit_card_number_formatter.dart';
 import 'package:cardwiz/presentation/add_card/widgets/cardwiz_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ExpiryDateField extends StatelessWidget {
   const ExpiryDateField({super.key, required this.controller});
@@ -13,7 +15,12 @@ class ExpiryDateField extends StatelessWidget {
       controller: controller,
       keyboardType: TextInputType.datetime,
       maxLength: 5,
-      validator: ValidatorService.validateExpiryDate,
+      validator: CardValidatorService.validateExpiryDate,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(4),
+        CardDateFormatter()
+      ],
     );
   }
 }

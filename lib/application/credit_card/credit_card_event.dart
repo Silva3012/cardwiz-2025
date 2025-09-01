@@ -7,4 +7,5 @@ class CreditCardEvent with _$CreditCardEvent {
       OnAddCard;
   const factory CreditCardEvent.onDeleteCard({required String cardNumber}) =
       OnDeleteCard;
+  const factory CreditCardEvent.onGetCountries() = OnGetCountries;
 }
