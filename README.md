@@ -64,6 +64,9 @@ This Flutter mobile application allows admins to submit credit card numbers for 
 3. Ensure the issuing country is not on the banned list.
 4. View the list of all captured credit cards.
 
+[![Watch Demo](https://img.youtube.com/vi/nHwIoIL7tLU/0.jpg)](https://youtu.be/nHwIoIL7tLU)
+
+
 ## Configuration
 
 * Banned countries can be updated in the app.
