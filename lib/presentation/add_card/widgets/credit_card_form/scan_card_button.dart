@@ -19,7 +19,6 @@ class ScanCardButton extends StatelessWidget {
   final TextEditingController cardHolderNameController;
   final CardScanOptions scanOptions;
 
-  /// Handles the card scanning logic
   Future<void> scanCard({
     required BuildContext context,
     TextEditingController? cardNumberController,
@@ -29,7 +28,6 @@ class ScanCardButton extends StatelessWidget {
       final cardDetails = await CardScanner.scanCard(scanOptions: scanOptions);
       if (!context.mounted || cardDetails == null) return;
 
-      // Update controllers safely
       if (cardNumberController != null) {
         cardNumberController.text = cardDetails.cardNumber;
       }
